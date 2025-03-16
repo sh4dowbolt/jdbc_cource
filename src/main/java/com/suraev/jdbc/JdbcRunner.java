@@ -13,7 +13,7 @@ public class JdbcRunner {
         try (Connection connection = ConnectionManager.get()) {
 
             System.out.println(connection.getTransactionIsolation());
-            //ddl
+            //ddl1
             String sql = """
                     create table if not exists info (
                     id serial primary key,
