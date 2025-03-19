@@ -9,17 +9,16 @@ public class JdbcRunner {
         try (Connection connection = ConnectionManager.get()) {
 
             System.out.println(connection.getTransactionIsolation());
-            //ddl1
             String sql = """
-                    create table if not exists info (
-                    id serial primary key,
-                    data text not null
-                    );
+                    update info
+                    set data = 'testTest'
+                    where id = 10
                     """;
             try (var statement = connection.createStatement()) {
-                var result = statement.execute(sql);
+                var result = statement.executeUpdate(sql);
                 System.out.println(connection.getSchema());
                 System.out.println(result);
+                //System.out.println(statement.getUpdateCount());
             }
         }
 
