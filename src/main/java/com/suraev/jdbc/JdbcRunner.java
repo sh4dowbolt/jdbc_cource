@@ -1,33 +1,43 @@
 package com.suraev.jdbc;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
 
 
+
 public class JdbcRunner {
     public static void main(String[] args) throws SQLException {
-        String flightId="2; DROP TABLE tickets";
+        //Long flightId=1L;
+        LocalDateTime from = LocalDateTime.now().minusHours(10);
+        LocalDateTime to = LocalDateTime.now().plusHours(1);
         //fillOfData();
-        var result = getTicketsByFlightId(flightId);
+        var result = getTicketsBetween(from, to);
         System.out.println(result);
+    
 
     }
 
 
-        private static List<Long> getTicketsByFlightId(String flightId) throws SQLException {
+        private static List<Long> getTicketsByFlightId(Long flightId) throws SQLException {
             String sql = """
-            SELECT ID 
+            SELECT id 
             FROM tickets
-            where id = %s
-            """.formatted(flightId);
+            where id = ?
+            """;
 
             List<Long> result = new ArrayList<>();
 
             try (var connection = ConnectionManager.get();
-                var statement = connection.createStatement()) {
+                var prepareStatement = connection.prepareStatement(sql)) {
+    
 
-                final var resultSet = statement.executeQuery(sql);
+                prepareStatement.setLong(1, flightId);
+
+                final var resultSet = prepareStatement.executeQuery();
                 while(resultSet.next()) {
                     result.add(resultSet.getObject("id", Long.class)); //NULL SAFE
                 }
@@ -35,6 +45,34 @@ public class JdbcRunner {
 
         return result;
      
+        }
+
+        private static List<Long> getTicketsBetween(LocalDateTime from, LocalDateTime to) throws SQLException{
+            String sql = """
+                    SELECT * 
+                    FROM tickets
+                    WHERE departure_date 
+                    BETWEEN ? and ?
+                    """;
+            List <Long> resList = new ArrayList<>();
+            
+            try (var connection = ConnectionManager.get();
+                 var prepareStatement = connection.prepareStatement(sql)) {
+                    
+                    System.out.println(prepareStatement);
+                    prepareStatement.setTimestamp(1, Timestamp.valueOf(from));
+                    System.out.println(prepareStatement);
+                    prepareStatement.setTimestamp(2, Timestamp.valueOf(to));
+                    System.out.println(prepareStatement);
+                    
+                    final var resultSet = prepareStatement.executeQuery();
+
+                    while (resultSet.next()) {
+                        resList.add(resultSet.getObject("id",Long.class));
+                    }
+                }
+
+            return resList;
         }
 
         private static void fillOfData() throws SQLException {
@@ -46,7 +84,7 @@ public class JdbcRunner {
             String insertSql= """
                     INSERT INTO tickets (id) VALUES 
                     (1),
-                    (2),
+                    (2),;
                     (3)
                     """;
             try (var connection = ConnectionManager.get();
