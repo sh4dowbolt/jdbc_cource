@@ -12,11 +12,13 @@ import java.util.List;
 public class JdbcRunner {
     public static void main(String[] args) throws SQLException {
         //Long flightId=1L;
-        LocalDateTime from = LocalDateTime.now().minusHours(10);
-        LocalDateTime to = LocalDateTime.now().plusHours(1);
+        //LocalDateTime from = LocalDateTime.now().minusHours(10);
+        //LocalDateTime to = LocalDateTime.now().plusHours(1);
         //fillOfData();
-        var result = getTicketsBetween(from, to);
-        System.out.println(result);
+        //var result = getTicketsBetween(from, to);
+       // System.out.println(result);
+
+       checkMetaData();
     
 
     }
@@ -47,6 +49,44 @@ public class JdbcRunner {
      
         }
 
+        private static void checkMetaData() throws SQLException {
+        try (var connection = ConnectionManager.get()) {
+            var metaData = connection.getMetaData();
+            var catalogs = metaData.getCatalogs();
+
+            while(catalogs.next()) {
+                var catalog = catalogs.getString(1);
+
+                var schemas= metaData.getSchemas();
+
+                while (schemas.next()) {
+
+                    var schema = schemas.getString("TABLE_SCHEM");
+
+                    var tables = metaData.getTables(catalog, schema,"%", new String []{"TABLE"});
+
+
+                    if(schema.equals("public")) {
+                    while (tables.next()) {
+                        var tableName = tables.getString("TABLE_NAME");
+
+                        var columns =metaData.getColumns(catalog, schema, tableName, "%");
+
+                            while (columns.next()) {
+                                System.out.println(columns.getString("COLUMN_NAME"));
+                                
+                            }
+
+                    }
+                    
+                }
+
+            }
+            
+        } 
+    }
+        }
+
         private static List<Long> getTicketsBetween(LocalDateTime from, LocalDateTime to) throws SQLException{
             String sql = """
                     SELECT * 
@@ -58,13 +98,16 @@ public class JdbcRunner {
             
             try (var connection = ConnectionManager.get();
                  var prepareStatement = connection.prepareStatement(sql)) {
+
+                    prepareStatement.setFetchSize(50);
+                    prepareStatement.setMaxRows(100);
                     
                     System.out.println(prepareStatement);
                     prepareStatement.setTimestamp(1, Timestamp.valueOf(from));
                     System.out.println(prepareStatement);
                     prepareStatement.setTimestamp(2, Timestamp.valueOf(to));
                     System.out.println(prepareStatement);
-                    
+
                     final var resultSet = prepareStatement.executeQuery();
 
                     while (resultSet.next()) {
@@ -94,4 +137,3 @@ public class JdbcRunner {
             } 
         }
     }
-
