@@ -28,7 +28,7 @@ public class BlobRunner {
                 """;
         var airId = 2;        
 
-        try (var connection = ConnectionManager.get();
+        try (var connection = ConnectionManager.getConnection();
              var preparedStatement = connection.prepareStatement(selectStatement)) {
             
                 preparedStatement.setInt(1, airId);
@@ -46,7 +46,7 @@ public class BlobRunner {
 
         var updateStatement = "UPDATE aircraft SET image = ? WHERE id=2";
 
-        try (var connection = ConnectionManager.get();
+        try (var connection = ConnectionManager.getConnection();
             var preparedStatement = connection.prepareStatement(updateStatement)) {
             
             preparedStatement.setBytes(1, 

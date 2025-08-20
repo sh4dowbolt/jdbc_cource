@@ -18,7 +18,11 @@ public class JdbcRunner {
         //var result = getTicketsBetween(from, to);
        // System.out.println(result);
 
-       checkMetaData();
+       try {
+            checkMetaData();
+       } finally {
+            ConnectionManager.closeConectionPool();
+       }
     
 
     }
@@ -33,7 +37,7 @@ public class JdbcRunner {
 
             List<Long> result = new ArrayList<>();
 
-            try (var connection = ConnectionManager.get();
+            try (var connection = ConnectionManager.getConnection();
                 var prepareStatement = connection.prepareStatement(sql)) {
     
 
@@ -50,7 +54,7 @@ public class JdbcRunner {
         }
 
         private static void checkMetaData() throws SQLException {
-        try (var connection = ConnectionManager.get()) {
+        try (var connection = ConnectionManager.getConnection()) {
             var metaData = connection.getMetaData();
             var catalogs = metaData.getCatalogs();
 
@@ -96,7 +100,7 @@ public class JdbcRunner {
                     """;
             List <Long> resList = new ArrayList<>();
             
-            try (var connection = ConnectionManager.get();
+            try (var connection = ConnectionManager.getConnection();
                  var prepareStatement = connection.prepareStatement(sql)) {
 
                     prepareStatement.setFetchSize(50);
