@@ -72,7 +72,7 @@ public final class ConnectionManager {
         }
     }
 
-    public void closeConectionPool() {
+    public static void closeConectionPool() {
         for (Connection connection : sourcePool) {
             try {
                 connection.close();
