@@ -25,6 +25,17 @@ public class WrapperConnection implements Connection{
     private final Connection connection;
     private final BlockingQueue<Connection> pool;
 
+    public WrapperConnection (Connection connection, BlockingQueue <Connection> pool) {
+        this.connection = connection;
+        this.pool = pool;
+    }
+
+
+    @Override
+    public void close() throws SQLException {
+        pool.add(this);
+    }
+
     @Override
     public <T> T unwrap(Class<T> iface) throws SQLException {
         // TODO Auto-generated method stub
@@ -85,10 +96,7 @@ public class WrapperConnection implements Connection{
         throw new UnsupportedOperationException("Unimplemented method 'rollback'");
     }
 
-    @Override
-    public void close() throws SQLException {
-        pool.add(this);
-    }
+  
 
     @Override
     public boolean isClosed() throws SQLException {

@@ -134,7 +134,7 @@ public class JdbcRunner {
                     (2),;
                     (3)
                     """;
-            try (var connection = ConnectionManager.get();
+            try (var connection = ConnectionManager.getConnection();
                  var statement = connection.createStatement()) {
                     statement.execute(sql);
                     statement.execute(insertSql);
