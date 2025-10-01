@@ -6,11 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="235b4ee9-5548-4ca7-8fd5-0373b63b290e" name="Changes" comment="ResultSet. Select operation">
       <changelist_data name="Surayev" email="dmit.palckin@yandex.ru" automatic="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/suraev/jdbc/DaoRunner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/suraev/jdbc/exception/DaoException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/suraev/jdbc/WrapperConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/suraev/jdbc/WrapperConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/suraev/jdbc/DaoRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/suraev/jdbc/DaoRunner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/suraev/jdbc/dao/TicketDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/suraev/jdbc/dao/TicketDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/suraev/jdbc/entity/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/suraev/jdbc/entity/Ticket.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,6 +154,11 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
@@ -395,7 +399,7 @@
       <workItem from="1756325651197" duration="714000" />
       <workItem from="1756450917010" duration="82000" />
       <workItem from="1758385819781" duration="782000" />
-      <workItem from="1759316964196" duration="6695000" />
+      <workItem from="1759316964196" duration="15218000" />
     </task>
     <task id="LOCAL-00001" summary="connection to db lesson">
       <option name="closed" value="true" />
@@ -588,7 +592,7 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/suraev/jdbc/DaoRunner.java</url>
-          <line>9</line>
+          <line>11</line>
           <properties class="com.suraev.jdbc.DaoRunner" method="main">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

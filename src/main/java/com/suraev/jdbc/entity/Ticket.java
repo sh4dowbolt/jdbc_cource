@@ -13,7 +13,7 @@ public class Ticket {
         this.seatNo = seatNo;
         this.price = price;
     }
-
+    public Ticket() {};
     public Long getTicketId() {
         return ticketId;
     }
