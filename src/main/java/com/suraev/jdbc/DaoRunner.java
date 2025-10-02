@@ -1,6 +1,7 @@
 package com.suraev.jdbc;
 
 import com.suraev.jdbc.dao.TicketDao;
+import com.suraev.jdbc.dto.TickeFilter;
 import com.suraev.jdbc.entity.Ticket;
 
 import java.math.BigDecimal;
@@ -17,7 +18,8 @@ public class DaoRunner {
        // findByIdTest(instance);
        // updateTest(instance);
 
-        getAllTickets(instance);
+        findByFilter(instance);
+        // getAllTickets(instance);
 
 
 
@@ -25,6 +27,12 @@ public class DaoRunner {
                 "Vitaly Sureav", 3L,"16E", BigDecimal.valueOf(4800.00)));
 
         instance.delete(11L);*/
+    }
+
+    private static void findByFilter(TicketDao instance) {
+        TickeFilter filter =new TickeFilter(5, 1, null,"1");
+        List<Ticket> all = instance.findAll(filter);
+        all.forEach(System.out::println);
     }
 
     private static void getAllTickets(TicketDao instance) {
