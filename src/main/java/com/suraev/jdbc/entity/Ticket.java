@@ -5,11 +5,11 @@ import java.util.Objects;
 
 public class Ticket {
 
-    public Ticket(Long ticketId, String passengerNo, String passengerName, Long flightId, String seatNo, BigDecimal price) {
+    public Ticket(Long ticketId, String passengerNo, String passengerName, Flight flight, String seatNo, BigDecimal price) {
         this.ticketId = ticketId;
         this.passengerNo = passengerNo;
         this.passengerName = passengerName;
-        this.flightId = flightId;
+        this.flight = flight;
         this.seatNo = seatNo;
         this.price = price;
     }
@@ -38,12 +38,12 @@ public class Ticket {
         this.passengerName = passengerName;
     }
 
-    public Long getFlightId() {
-        return flightId;
+    public Flight getFlight() {
+        return flight;
     }
 
-    public void setFlightId(Long flightId) {
-        this.flightId = flightId;
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 
     public String getSeatNo() {
@@ -66,30 +66,30 @@ public class Ticket {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Ticket ticket = (Ticket) o;
-        return Objects.equals(ticketId, ticket.ticketId) && Objects.equals(passengerNo, ticket.passengerNo) && Objects.equals(passengerName, ticket.passengerName) && Objects.equals(flightId, ticket.flightId) && Objects.equals(seatNo, ticket.seatNo) && Objects.equals(price, ticket.price);
+        return Objects.equals(ticketId, ticket.ticketId) && Objects.equals(passengerNo, ticket.passengerNo) && Objects.equals(passengerName, ticket.passengerName) && Objects.equals(flight, ticket.flight) && Objects.equals(seatNo, ticket.seatNo) && Objects.equals(price, ticket.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ticketId, passengerNo, passengerName, flightId, seatNo, price);
+        return Objects.hash(ticketId, passengerNo, passengerName, flight, seatNo, price);
     }
 
     @Override
     public String toString() {
         return "Ticket{" +
-                "ticketId=" + ticketId +
-                ", passengerNo='" + passengerNo + '\'' +
-                ", passengerName='" + passengerName + '\'' +
-                ", flightId=" + flightId +
-                ", seatNo='" + seatNo + '\'' +
-                ", price=" + price +
-                '}';
+               "ticketId=" + ticketId +
+               ", passengerNo='" + passengerNo + '\'' +
+               ", passengerName='" + passengerName + '\'' +
+               ", flightId=" + flight +
+               ", seatNo='" + seatNo + '\'' +
+               ", price=" + price +
+               '}';
     }
 
     private Long ticketId;
     private String passengerNo;
     private String passengerName;
-    private Long flightId;
+    private Flight flight;
     private String seatNo;
     private BigDecimal price;
 }

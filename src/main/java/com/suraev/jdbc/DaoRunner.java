@@ -12,13 +12,13 @@ public class DaoRunner {
 
     public static void main(String[] args) {
 
-        TicketDao instance = TicketDao.getInstance();
+        var ticket = TicketDao.getInstance().getById(5L);
+        System.out.println(ticket);
 
 
        // findByIdTest(instance);
        // updateTest(instance);
-
-        findByFilter(instance);
+        //findByFilter(instance);
         // getAllTickets(instance);
 
 
@@ -45,7 +45,7 @@ public class DaoRunner {
         System.out.println(byId.toString());
     }
     private static void updateTest(TicketDao instance) {
-        Ticket ticketToUpdate = new Ticket(12L, "P008","Andrey Shustikov", 3L, "16A", BigDecimal.valueOf(5000L));
+        Ticket ticketToUpdate = new Ticket(12L, "P008","Andrey Shustikov", null, "16A", BigDecimal.valueOf(5000L));
         Ticket update = instance.update(ticketToUpdate);
         System.out.println(update.toString());
     }
